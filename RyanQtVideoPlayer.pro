@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui multimedia network
+QT       += core gui network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -34,13 +34,49 @@ HEADERS += \
 FORMS += \
         widget.ui
 
-## 引入ffmpeg库
-LIBS += -L/usr/local/Cellar/ffmpeg/4.2.1_2/lib -lavcodec -lavdevice -lavfilter -lavformat -lavresample -lavutil -lpostproc -lswresample -lswscale
+# ***********************************************************
+# 开始配置
+# ***********************************************************
 
-# 引入ffmpeg头
-INCLUDEPATH += /usr/local/Cellar/ffmpeg/4.2.1_2/include
+# 附加包含路径
+INCLUDEPATH += \
+        $$PWD/ffmpeg/include
+
+# ***********************************************************
+# Mac平台下配置
+# ***********************************************************
+macos {
+    # 输出目录
+    CONFIG(debug, debug|release) {
+        DESTDIR = $$PWD/output/mac/debug
+    } else {
+        DESTDIR = $$PWD/output/mac/release
+    }
+
+    # 依赖模块
+    LIBS += \
+            -L$$PWD/ffmpeg/lib -lavformat.58 \
+            -L$$PWD/ffmpeg/lib -lavcodec.58 \
+            -L$$PWD/ffmpeg/lib -lavutil.56 \
+            -L$$PWD/ffmpeg/lib -lswscale.5
+
+    # mac bundle file
+#    APP_FFMPEG.files = $$files($$PWD/third_party/ffmpeg/lib/*.dylib)
+#    APP_FFMPEG.path = Contents/MacOS
+#    QMAKE_BUNDLE_DATA += APP_FFMPEG
+
+    # 设置图标
+    ICON = $$PWD/res/QtScrcpy.icns
+}
+
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    $$PWD/res/res.qrc
+
+DISTFILES += \
+    .gitignore

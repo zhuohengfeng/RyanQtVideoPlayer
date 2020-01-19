@@ -8,11 +8,14 @@ Widget::Widget(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    this->setFixedSize(640, 480);
+    this->setWindowTitle("Qt播放器");
+
     // 测试打印ffmpeg信息
     qDebug() << avcodec_configuration();
     unsigned version = avcodec_version();
     QString ch = QString::number(version, 10);
-    qDebug() << "version:" << version;
+    qDebug() << "version : " << version;
 }
 
 Widget::~Widget()
