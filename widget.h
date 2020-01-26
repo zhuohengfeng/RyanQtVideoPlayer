@@ -3,18 +3,6 @@
 
 #include <QWidget>
 
-// 引入ffmpeg头文件
-extern "C"
-{
-    #include <libavcodec/avcodec.h>
-    #include <libavformat/avformat.h>
-    #include <libswscale/swscale.h>
-    #include <libavformat/version.h>
-    #include <libavutil/mathematics.h>
-}
-
-
-
 namespace Ui {
 class Widget;
 }

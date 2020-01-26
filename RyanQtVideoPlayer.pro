@@ -26,10 +26,12 @@ CONFIG += c++11
 
 SOURCES += \
         main.cpp \
-        widget.cpp
+        widget.cpp \
+        xffmpeg.cpp
 
 HEADERS += \
-        widget.h
+        widget.h \
+        xffmpeg.h
 
 FORMS += \
         widget.ui
