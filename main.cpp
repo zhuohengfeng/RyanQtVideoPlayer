@@ -4,12 +4,7 @@
 
 int main(int argc, char *argv[])
 {
-//    if (XFFmpeg::GetInstance()->Open("/Users/hengfeng/Desktop/testvideo.mp4")) {
-//        printf("open success!\n");
-//    }
-//    else {
-//        printf("open failed!%s\n",XFFmpeg::GetInstance()->GetError().c_str());
-//    }
+
 //    for (;;) {
 //        AVPacket pkt = XFFmpeg::GetInstance()->Read();
 //        if (pkt.size <= 0) {
