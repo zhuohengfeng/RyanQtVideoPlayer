@@ -28,12 +28,16 @@ SOURCES += \
         main.cpp \
         widget.cpp \
         xffmpeg.cpp \
-    videowidget.cpp
+    videowidget.cpp \
+    xvideothread.cpp \
+    xaudioplay.cpp
 
 HEADERS += \
         widget.h \
         xffmpeg.h \
-    videowidget.h
+    videowidget.h \
+    xvideothread.h \
+    xaudioplay.h
 
 FORMS += \
         widget.ui

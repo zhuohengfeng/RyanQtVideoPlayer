@@ -1,4 +1,13 @@
 #include "xffmpeg.h"
+#include <QtDebug>
+
+
+// 避免计算时分母为0时的特判情况
+static double r2d(AVRational r)
+{
+    return r.den == 0 ? 0 : (double)r.num / (double)r.den;
+}
+
 
 XFFmpeg::XFFmpeg()
 {
@@ -28,6 +37,9 @@ bool XFFmpeg::Open(const char *path)
         AVCodecContext *enc = ic->streams[i]->codec;
         if (enc->codec_type == AVMEDIA_TYPE_VIDEO) {
             this->videoStream = i;
+            this->fps = r2d(ic->streams[i]->avg_frame_rate); // 获取视频的fps = 30
+            qDebug() << "FPS: " << this->fps;
+
             AVCodec* codec = avcodec_find_decoder(enc->codec_id);
             if (!codec) {
                 mutex.unlock();

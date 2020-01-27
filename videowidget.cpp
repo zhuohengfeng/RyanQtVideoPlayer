@@ -2,21 +2,26 @@
 #include "xffmpeg.h"
 #include <QtDebug>
 #include <QPainter>
+#include "xvideothread.h"
 
 VideoWidget::VideoWidget(QWidget *parent) : QOpenGLWidget(parent)
 {
-    if (XFFmpeg::GetInstance()->Open("/Users/hengfeng/Desktop/testvideo.mp4")) {
-        printf("open success!\n");
-        startTimer(10); // 触发定时刷新
-    }
-    else {
-        printf("open failed!%s\n",XFFmpeg::GetInstance()->GetError().c_str());
-    }
+    startTimer(20); // 触发定时刷新
+    XVideoThread::Get()->start();
+
+//    if (XFFmpeg::GetInstance()->Open("/Users/hengfeng/Desktop/testvideo.mp4")) {
+//        printf("open success!\n");
+//        startTimer(20); // 触发定时刷新
+//        XVideoThread::Get()->start();
+//    }
+//    else {
+//        printf("open failed!%s\n",XFFmpeg::GetInstance()->GetError().c_str());
+//    }
 }
 
 VideoWidget::~VideoWidget()
 {
-
+    XVideoThread::Get()->isexit = true;
 }
 
 void VideoWidget::paintEvent(QPaintEvent *event)
